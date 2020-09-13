@@ -29,6 +29,6 @@ internal object GeofencingConstants {
 
 
     )
-
+    const val GEOFENCE_DWELL_TIME = 30000
     const val GEOFENCE_RADIUS_IN_METERS = 50f
 }
