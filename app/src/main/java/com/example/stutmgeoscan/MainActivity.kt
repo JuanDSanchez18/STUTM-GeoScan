@@ -28,9 +28,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
-
-
-
     //Geofence
     private lateinit var geofencingClient: GeofencingClient//cliente de geovallado
 
@@ -42,13 +39,10 @@ class MainActivity : AppCompatActivity() {
         PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-
-
     //Scan WiFi
     private lateinit var wifiManager: WifiManager
 
     private val wifiScanReceiver = object : BroadcastReceiver() {
-
 
         override fun onReceive(context: Context, intent: Intent) {
             val success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
@@ -77,8 +71,8 @@ class MainActivity : AppCompatActivity() {
                 for (location in locationResult.locations) {
                     // Update UI with location data
 
-                    latitude.text = "Latitude: " +location.latitude.toString()
-                    longitude.text = "Longitude" +location.longitude.toString()
+                    latitude.text = "Latitude:  "+location.latitude.toString()
+                    longitude.text = "Longitude: " +location.longitude.toString()
                 }
             }
         }
@@ -92,9 +86,6 @@ class MainActivity : AppCompatActivity() {
             scanBtn.setOnClickListener { scanWifiNetworks() }
 
         }
-
-
-
     }
 
     //request permission
@@ -245,7 +236,7 @@ class MainActivity : AppCompatActivity() {
                     // removed after this period of time.
                     .setExpirationDuration(Geofence.NEVER_EXPIRE)
 
-                    .setLoiteringDelay(GeofencingConstants.GEOFENCE_DWELL_TIME )
+                    .setLoiteringDelay(GeofencingConstants.GEOFENCE_DWELL_TIME)
 
                     // Set the transition types of interest. Alerts are only generated for these
                     // transition. We track entry and exit transitions in this sample.
@@ -317,7 +308,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun scanSuccess() {
         val results = wifiManager.scanResults
-        scanReport.text = "Scan WiFi success"
+        scanReport.text = "Scan WiFi success" + "\n"
         scanReport.append("Number of access point: ")
         scanReport.append(results.size.toString() + "\n")
         //... use new scan results ...
