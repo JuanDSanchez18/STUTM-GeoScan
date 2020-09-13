@@ -89,7 +89,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             //https://walkiriaapps.com/blog/android/iconos-notificaciones-android-studio/
             .setSmallIcon(R.drawable.geofence_icon)
             .setContentTitle("Activación geovallado")
-            .setContentText("$geofenceTransitionDetails . Por favor activar start scan")
+            .setContentText("$geofenceTransitionDetails. Por favor activar start scan")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
             // Set the intent that will fire when the user taps the notification
