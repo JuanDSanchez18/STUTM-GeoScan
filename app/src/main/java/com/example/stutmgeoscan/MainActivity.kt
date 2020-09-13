@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
 
     //Geofence
     private lateinit var geofencingClient: GeofencingClient//cliente de geovallado
@@ -64,18 +63,6 @@ class MainActivity : AppCompatActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         geofencingClient = LocationServices.getGeofencingClient(this)
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                locationResult ?: return
-                for (location in locationResult.locations) {
-                    // Update UI with location data
-
-                    latitude.text = "Latitude:  "+location.latitude.toString()
-                    longitude.text = "Longitude: " +location.longitude.toString()
-                }
-            }
-        }
 
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
@@ -146,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     private fun createLocationRequestAndcheckSettings() {
 
         locationRequest = LocationRequest.create()?.apply {
-            interval = 10000
+            interval = 10000//revisar
             fastestInterval = 5000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }!!
@@ -163,7 +150,6 @@ class MainActivity : AppCompatActivity() {
             // ...
             Log.i(tag, "Success check settings")
             addGeofences()
-            startLocationUpdates()
 
         }
 
@@ -252,16 +238,6 @@ class MainActivity : AppCompatActivity() {
         }.build()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun startLocationUpdates() {
-
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()

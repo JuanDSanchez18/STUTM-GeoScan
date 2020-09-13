@@ -71,6 +71,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         return when (transitionType) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> "GEOFENCE_TRANSITION_ENTER"
             Geofence.GEOFENCE_TRANSITION_EXIT -> "GEOFENCE_TRANSITION_EXIT"
+            Geofence.GEOFENCE_TRANSITION_DWELL -> "Está en:"
             else -> "GEOFENCE_TRANSITION_UNKNOWN"
         }
     }
@@ -88,12 +89,12 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             //https://walkiriaapps.com/blog/android/iconos-notificaciones-android-studio/
             .setSmallIcon(R.drawable.geofence_icon)
             .setContentTitle("Activación geovallado")
-            .setContentText(geofenceTransitionDetails)
+            .setContentText(geofenceTransitionDetails +"Activar start scan")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
-            .setAutoCancel(true)// NO FUNCIONA
+            .setAutoCancel(true)
 
         Log.i(TAG, "Send notification")
 
