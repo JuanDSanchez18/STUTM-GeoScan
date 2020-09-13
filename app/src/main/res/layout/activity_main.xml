@@ -10,9 +10,8 @@
         android:id="@+id/scanReport"
         android:layout_width="247dp"
         android:layout_height="60dp"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="228dp"
         android:text="@string/ScanList"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,10 +20,12 @@
         android:id="@+id/scanBtn"
         android:layout_width="237dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="212dp"
+        android:layout_marginBottom="140dp"
         android:text="@string/StartScan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanReport"
+        app:layout_constraintVertical_bias="0.422" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             val channelId = "GeofenceChannel"
             val name = "STUTM"
             val descriptionText = "Channel description"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(channelId, name, importance).apply {
                 description = descriptionText
             }
@@ -133,8 +133,8 @@ class MainActivity : AppCompatActivity() {
     private fun createLocationRequestAndcheckSettings() {
 
         locationRequest = LocationRequest.create()?.apply {
-            interval = 10000//revisar
-            fastestInterval = 5000
+            //interval = 10000//revisar
+            //fastestInterval = 5000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }!!
 
