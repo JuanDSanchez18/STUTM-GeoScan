@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
     private val tag = "MainActivity"
 
+    companion object {
+        val instance = MainActivity()
+    }
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
 
@@ -109,7 +113,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -128,7 +131,6 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
-
 
     private fun createLocationRequestAndcheckSettings() {
 
@@ -176,7 +178,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     @SuppressLint("MissingPermission")
     private fun addGeofences() {
 
@@ -222,7 +223,7 @@ class MainActivity : AppCompatActivity() {
                     // removed after this period of time.
                     .setExpirationDuration(Geofence.NEVER_EXPIRE)
 
-                    .setLoiteringDelay(GeofencingConstants.GEOFENCE_DWELL_TIME)
+                    .setLoiteringDelay(GeofencingConstants.GEOFENCE_DWELL_TIME or Geofence.GEOFENCE_TRANSITION_EXIT)
 
                     // Set the transition types of interest. Alerts are only generated for these
                     // transition. We track entry and exit transitions in this sample.
@@ -260,7 +261,7 @@ class MainActivity : AppCompatActivity() {
     /* Scan WiFi*/
 
 
-    private fun scanWifiNetworks() {
+    fun scanWifiNetworks() {
 //https://github.com/shmulman/WifiSense_v5/blob/master/app/src/main/java/il/co/shmulman/www/wifisense_v5/MainActivity.kt
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 

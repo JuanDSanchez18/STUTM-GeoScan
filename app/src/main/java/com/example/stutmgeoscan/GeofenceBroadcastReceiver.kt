@@ -14,24 +14,23 @@ import com.google.android.gms.location.GeofencingEvent
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
-    private val TAG = "GeofenceBroadcastReceiver"
+    private val tag = "GeofenceBroadcastReceiver"
+    val mainActivity = MainActivity.instance
+
     private val channelId  = "GeofenceChannel"
     private val notificationId = 420
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
-
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
             //val errorMessage = GeofenceStatusCodes.getErrorString(geofencingEvent.errorCode)
-            Log.e(TAG, "errorMessage")
+            Log.e(tag, "errorMessage")
             return
         }
 
         // Get the transition type.
         val geofenceTransition = geofencingEvent.geofenceTransition
-
-        // Test that the reported transition was of interest.
 
         // Get the geofences that were triggered. A single event can trigger
         // multiple geofences.
@@ -48,6 +47,16 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             sendNotification(geofenceTransitionDetails, context)
         }
 
+        // Test that the reported transition was of interest.
+        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL ) {
+
+            mainActivity.scanWifiNetworks()
+
+        }else{
+            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
+
+            }
+        }
     }
 
     private fun getGeofenceTransitionDetails(
@@ -71,7 +80,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         return when (transitionType) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> "GEOFENCE_TRANSITION_ENTER"
             Geofence.GEOFENCE_TRANSITION_EXIT -> "GEOFENCE_TRANSITION_EXIT"
-            Geofence.GEOFENCE_TRANSITION_DWELL -> "Usted está en"
+            Geofence.GEOFENCE_TRANSITION_DWELL -> "GEOFENCE_TRANSITION_DWELL"
             else -> "GEOFENCE_TRANSITION_UNKNOWN"
         }
     }
@@ -89,14 +98,14 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             //https://walkiriaapps.com/blog/android/iconos-notificaciones-android-studio/
             .setSmallIcon(R.drawable.geofence_icon)
             .setContentTitle("Activación geovallado")
-            .setContentText("$geofenceTransitionDetails. Por favor activar start scan")
+            .setContentText(geofenceTransitionDetails)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
-        Log.i(TAG, "Send notification")
+        Log.i(tag, "Send notification")
 
         with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
