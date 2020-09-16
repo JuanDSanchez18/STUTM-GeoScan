@@ -15,7 +15,7 @@ import com.google.android.gms.location.GeofencingEvent
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
     private val tag = "GeofenceBroadcastReceiver"
-    val mainActivity = MainActivity.instance
+    private val mainActivity = MainActivity.instance
 
     private val channelId  = "GeofenceChannel"
     private val notificationId = 420

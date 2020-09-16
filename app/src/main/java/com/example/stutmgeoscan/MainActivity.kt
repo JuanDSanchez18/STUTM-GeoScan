@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private val tag = "MainActivity"
 
+//https://es.stackoverflow.com/questions/330267/como-ejecutar-una-funcion-del-mainactivity-fuera-de-%C3%A9l
     companion object {
         val instance = MainActivity()
     }
@@ -223,11 +224,11 @@ class MainActivity : AppCompatActivity() {
                     // removed after this period of time.
                     .setExpirationDuration(Geofence.NEVER_EXPIRE)
 
-                    .setLoiteringDelay(GeofencingConstants.GEOFENCE_DWELL_TIME or Geofence.GEOFENCE_TRANSITION_EXIT)
+                    .setLoiteringDelay(GeofencingConstants.GEOFENCE_DWELL_TIME)
 
                     // Set the transition types of interest. Alerts are only generated for these
-                    // transition. We track entry and exit transitions in this sample.
-                    .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL)
+                    // transition. We track dwell and exit transitions in this sample.
+                    .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL or Geofence.GEOFENCE_TRANSITION_EXIT)
 
                     // Create the geofence.
                     .build()
