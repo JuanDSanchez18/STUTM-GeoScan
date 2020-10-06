@@ -19,6 +19,8 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     //Scan WiFi
     private lateinit var wifiManager: WifiManager
+
+    private var timer = Timer()
 
     private val wifiScanReceiver = object : BroadcastReceiver() {
 
@@ -75,7 +79,6 @@ class MainActivity : AppCompatActivity() {
             scanReport.text = "Check permissions"
             createNotificationChannel()
             createLocationRequestAndcheckSettings()
-            scanBtn.setOnClickListener { scanWifiNetworks() }
 
         }
     }
@@ -262,7 +265,26 @@ class MainActivity : AppCompatActivity() {
     /* Scan WiFi*/
 
 
-    fun scanWifiNetworks() {
+    fun corutineScanWifi() {
+
+        timer = Timer()
+        //Set the schedule function
+        timer.scheduleAtFixedRate(
+            object : TimerTask() {
+                override fun run() {
+                    // Magic here
+                    scanWifiNetworks()
+                }
+            },
+            0, 15000
+        )
+    }
+
+    fun stopCorutineScanWifi(){
+        timer.cancel()
+    }
+
+    private fun scanWifiNetworks() {
 //https://github.com/shmulman/WifiSense_v5/blob/master/app/src/main/java/il/co/shmulman/www/wifisense_v5/MainActivity.kt
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
@@ -273,7 +295,6 @@ class MainActivity : AppCompatActivity() {
         val success = wifiManager.startScan()
         if (!success) {
             // scan failure handling
-
             scanFailure()
         }
     }
