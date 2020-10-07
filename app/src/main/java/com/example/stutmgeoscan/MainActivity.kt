@@ -265,7 +265,7 @@ class MainActivity : AppCompatActivity() {
     /* Scan WiFi*/
 
 
-    fun corutineScanWifi() {
+    fun repetiveScanWifi() {
 
         timer = Timer()
         //Set the schedule function
@@ -280,7 +280,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun stopCorutineScanWifi(){
+    fun stopRepetiveScanWifi(){
         timer.cancel()
     }
 

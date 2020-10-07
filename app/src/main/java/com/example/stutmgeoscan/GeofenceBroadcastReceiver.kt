@@ -50,12 +50,12 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         // Test that the reported transition was of interest.
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL ) {
 
-            mainActivity.corutineScanWifi()
+            mainActivity.repetiveScanWifi()
 
         }else{
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
 
-                mainActivity.stopCorutineScanWifi()
+                mainActivity.stopRepetiveScanWifi()
             }
         }
     }
